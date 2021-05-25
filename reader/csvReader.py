@@ -27,7 +27,7 @@ def readVaccinations() -> dict:
             ...
     """
 
-    with open('data/szczepienia.csv', newline='') as csvfile:
+    with open('data/szczepienia.csv', newline='', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
 
         next(reader, None) # to skip CSV headers
@@ -75,7 +75,7 @@ def readTests() -> dict:
             ...
     """
 
-    with open('data/testy.csv', newline='') as csvfile:
+    with open('data/testy.csv', newline='', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
 
         next(reader, None) # to skip CSV headers
@@ -147,7 +147,7 @@ def readCovidGrow() -> dict:
             ...
     """
 
-    with open('data/wzrost.csv', newline='') as csvfile:
+    with open('data/wzrost.csv', newline='', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
 
         next(reader, None) # to skip CSV headers

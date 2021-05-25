@@ -1,4 +1,6 @@
-from reader.csvReader import readVaccinations, readTests, Vaccination, CovidTest, CovidGrow, readCovidGrow
+from datetime import datetime
+from reader.csvReader import readVaccinations, readTests, readCovidGrow, Vaccination, CovidTest, CovidGrow
+from autocorrelation.correlationMatrix import correlate
 
 if __name__ == "__main__":
     vaccinations = readVaccinations()
@@ -37,3 +39,29 @@ if __name__ == "__main__":
     #     print() 
     # example print to show you how output looks like
 
+    corr_matrix = correlate([
+        #Chosen Vaccinations data columns
+        Vaccination.ALL, 
+        Vaccination.DAILY
+    ],
+    [
+        #Chosen CovidTests data columns
+        CovidTest.DAILY_NUMBER_OF_TESTS, 
+        CovidTest.DAILY_POSITIVE_TESTS, 
+        CovidTest.DAILY_AVERAGE_NUMBER_OF_TESTS
+    ],
+    [
+        #Chosen CovidGrow data columns
+        CovidGrow.SUMMED_CASES,
+        CovidGrow.NEW_DAILY_CASES,
+        CovidGrow.SUMMED_DEATHS,
+        CovidGrow.NEW_DAILY_DEATHS,
+        CovidGrow.NEW_DAILY_RECOVERIES,
+        CovidGrow.ACTIVE_CASES_SHIFT
+    ], start_date = "2020-12-28", end_date = "2021-05-17")
+    # print(corr_matrix)
+    # example of function invocation
+
+    
+
+    
