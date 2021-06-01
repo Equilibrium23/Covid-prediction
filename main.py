@@ -1,7 +1,7 @@
 from datetime import datetime
 from reader.csvReader import readVaccinations, readTests, readCovidGrow, Vaccination, CovidTest, CovidGrow
-from autocorrelation.correlationMatrix import correlate
-from visualization.visualization import CovidVisualisation
+from autocorrelation.Correlations import Correlations
+from visualization.CovidVisualisation import CovidVisualisation
 
 if __name__ == "__main__":
     # vaccinations = readVaccinations()
@@ -40,7 +40,7 @@ if __name__ == "__main__":
     # #     print() 
     # # example print to show you how output looks like
 
-    corr_matrix = correlate([
+    corr_data = Correlations.correlate([
         #Chosen Vaccinations data columns
         Vaccination.ALL, 
         Vaccination.DAILY
@@ -49,7 +49,7 @@ if __name__ == "__main__":
         #Chosen CovidTests data columns
         CovidTest.DAILY_NUMBER_OF_TESTS, 
         CovidTest.DAILY_POSITIVE_TESTS, 
-        CovidTest.DAILY_AVERAGE_NUMBER_OF_TESTS
+        CovidTest.DAILY_AVERAGE_NUMBER_OF_TESTS,
     ],
     [
         #Chosen CovidGrow data columns
@@ -58,13 +58,8 @@ if __name__ == "__main__":
         CovidGrow.SUMMED_DEATHS,
         CovidGrow.NEW_DAILY_DEATHS,
         CovidGrow.NEW_DAILY_RECOVERIES,
-        CovidGrow.ACTIVE_CASES_SHIFT
-    ], start_date = "2020-12-28", end_date = "2021-05-17")
-    # # print(corr_matrix)
+    ], start_date = "2021-03-01", end_date = "2021-05-17")
     # # example of function invocation
-
-    covid_charts = CovidVisualisation()
-    covid_charts.linear_plot(CovidGrow.NEW_DAILY_CASES, datetime(2021,1,2) , datetime(2021,3,20) )
     
 
     
