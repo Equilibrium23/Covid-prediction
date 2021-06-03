@@ -6,45 +6,55 @@ sys.path.append(parentdir)
 
 from sklearn.neural_network import MLPClassifier
 from reader.csvReader import  CovidTest, CovidGrow, Vaccination
-from datetime import datetime
 from sklearn.preprocessing import StandardScaler
+import plotly.express as px
+from pandas.core.frame import DataFrame
 
 
+def predict(covidDetails, vaccinations, tests):
+    #data
+    start = -30
+    stop = -10
+    data = list()
+    results = [ info[CovidGrow.NEW_DAILY_CASES] for info in covidDetails.values() ]
 
+    data.append([ info[Vaccination.ALL] for info in vaccinations.values() ])
+    data.append([ info[CovidTest.DAILY_NUMBER_OF_TESTS] for info in tests.values() ])
+    data.append([ info[CovidTest.DAILY_POSITIVE_TESTS] for info in tests.values() ])
+    data.append([ info[CovidGrow.NEW_DAILY_RECOVERIES] for info in covidDetails.values() ])
+    data.append([ info[CovidGrow.SUMMED_CASES] for info in covidDetails.values() ])
 
-def predict(data, vac, tests):
-    a = [ info[CovidGrow.NEW_DAILY_CASES] for info in data.values() ]
-
-    b = [ info[Vaccination.ALL] for info in vac.values() ]
-    c = [ info[CovidTest.DAILY_NUMBER_OF_TESTS] for info in tests.values() ] 
-    test_a =  a[-14:]
-
-    test_c = c[-14:] 
-    test_b = b[-14:]
-
-    testing = [[test_b[i],test_c[i]] for i in range(len(test_b)) ]
+    #test
+    test_res =  results[stop:]
+    test_data = [x[stop:] for x in data]
+    test_data = [[test_data[i][j] for i in range(len(test_data))] for j in range(len(test_data[0]))]
     sc3 = StandardScaler()
-    testing = sc3.fit_transform(testing)
+    test_data = sc3.fit_transform(test_data)
 
-    a = a[-60:-14]
-    b = b[-60:-14]
-    c = c[-60:-14]
+    #train
+    train_res =  results[start:stop]
+    train_data = [x[start:stop] for x in data]
+    train_data = [[train_data[i][j] for i in range(len(train_data))] for j in range(len(train_data[0]))]
 
-    X = [ [b[i],c[i]] for i in range(len(b)) ]
-
+    #prepare
     sc = StandardScaler()
+    X = train_data
     X = sc.fit_transform(X)
+    Y = train_res
 
-    Y = a 
-    # sc2 = StandardScaler()
-    # Y = sc2.fit_transform(Y)
-
-    clf = MLPClassifier(solver='lbfgs', alpha=1e-5,
-                        hidden_layer_sizes=(15, 2), random_state=1, max_iter = 10000)  
+    #action
+    clf = MLPClassifier(solver='lbfgs',
+                        activation='logistic',
+                        hidden_layer_sizes=(20, 20, 20),
+                        max_iter = 1000)  
     clf.fit(X, Y)
         
-    print(clf.predict( testing ))
-    print(test_a)
+    xd = clf.predict( test_data )
+
+    df = DataFrame([test_res, xd])
+    print(df.T)
+    fig = px.line(df.T)
+    fig.show()
 
 
     
