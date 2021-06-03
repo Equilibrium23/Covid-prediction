@@ -2,6 +2,7 @@ from datetime import datetime
 from reader.csvReader import readVaccinations, readTests, readCovidGrow, Vaccination, CovidTest, CovidGrow
 from autocorrelation.Correlations import Correlations
 from visualization.CovidVisualisation import CovidVisualisation
+from prediction.predicition import predict
 
 if __name__ == "__main__":
     # vaccinations = readVaccinations()
@@ -40,26 +41,40 @@ if __name__ == "__main__":
     # #     print() 
     # # example print to show you how output looks like
 
-    corr_data = Correlations.correlate([
-        #Chosen Vaccinations data columns
-        Vaccination.ALL, 
-        Vaccination.DAILY
-    ],
-    [
-        #Chosen CovidTests data columns
-        CovidTest.DAILY_NUMBER_OF_TESTS, 
-        CovidTest.DAILY_POSITIVE_TESTS, 
-        CovidTest.DAILY_AVERAGE_NUMBER_OF_TESTS,
-    ],
-    [
-        #Chosen CovidGrow data columns
-        CovidGrow.SUMMED_CASES,
-        CovidGrow.NEW_DAILY_CASES,
-        CovidGrow.SUMMED_DEATHS,
-        CovidGrow.NEW_DAILY_DEATHS,
-        CovidGrow.NEW_DAILY_RECOVERIES,
-    ], start_date = "2021-03-01", end_date = "2021-05-17")
+    # corr_data = Correlations.correlate([
+    #     #Chosen Vaccinations data columns
+    #     Vaccination.ALL, 
+    #     Vaccination.DAILY
+    # ],
+    # [
+    #     #Chosen CovidTests data columns
+    #     CovidTest.DAILY_NUMBER_OF_TESTS, 
+    #     CovidTest.DAILY_POSITIVE_TESTS, 
+    #     CovidTest.DAILY_AVERAGE_NUMBER_OF_TESTS,
+    # ],
+    # [
+    #     #Chosen CovidGrow data columns
+    #     CovidGrow.SUMMED_CASES,
+    #     CovidGrow.NEW_DAILY_CASES,
+    #     CovidGrow.SUMMED_DEATHS,
+    #     CovidGrow.NEW_DAILY_DEATHS,
+    #     CovidGrow.NEW_DAILY_RECOVERIES,
+    # ], start_date = "2021-03-01", end_date = "2021-05-17")
     # # example of function invocation
+
+    # covidDetails = readCovidGrow()
+    # prediction_data = []
+    # for date, covidData in covidDetails.items():
+    #     prediction_data.append([date,covidData[CovidGrow.NEW_DAILY_CASES]])
+    # predict(prediction_data)
+
+
+    vaccinations = readVaccinations()
+    covidDetails = readCovidGrow()
+    tests = readTests()
+
+
+    predict(covidDetails, vaccinations, tests)
     
 
     
