@@ -2,7 +2,7 @@ from datetime import datetime
 from reader.csvReader import readVaccinations, readTests, readCovidGrow, Vaccination, CovidTest, CovidGrow
 from autocorrelation.Correlations import Correlations
 from visualization.CovidVisualisation import CovidVisualisation
-from prediction.predicition import predict
+from prediction.prediction import predict
 
 if __name__ == "__main__":
     # vaccinations = readVaccinations()
@@ -44,7 +44,9 @@ if __name__ == "__main__":
     # corr_data = Correlations.correlate([
     #     #Chosen Vaccinations data columns
     #     Vaccination.ALL, 
-    #     Vaccination.DAILY
+    #     Vaccination.DAILY,
+    #     Vaccination.COMPLETED,
+    #     Vaccination.COMPLETED_PERCENT
     # ],
     # [
     #     #Chosen CovidTests data columns
@@ -59,20 +61,17 @@ if __name__ == "__main__":
     #     CovidGrow.SUMMED_DEATHS,
     #     CovidGrow.NEW_DAILY_DEATHS,
     #     CovidGrow.NEW_DAILY_RECOVERIES,
-    # ], start_date = "2021-03-01", end_date = "2021-05-17")
-    # # example of function invocation
-
-    # covidDetails = readCovidGrow()
-    # prediction_data = []
-    # for date, covidData in covidDetails.items():
-    #     prediction_data.append([date,covidData[CovidGrow.NEW_DAILY_CASES]])
-    # predict(prediction_data)
-
+    #     CovidGrow.INACTIVE_CASES_SHIFT,
+    #     CovidGrow.ACTIVE_CASES_SHIFT,
+    #     CovidGrow.TEMPORARY_INACTIVE_CASES_NUMBER,
+    #     CovidGrow.TEMPORARY_INACTIVE_CASES_NUMBER,
+    #     CovidGrow.TEMPORARY_ACTIVE_CASES_NUMBER
+    # ], start_date = "2021-04-17", end_date = "2021-05-17")
+    # example of function invocation
 
     vaccinations = readVaccinations()
     covidDetails = readCovidGrow()
     tests = readTests()
-
 
     predict(covidDetails, vaccinations, tests)
     
