@@ -11,6 +11,17 @@ sys.path.append(parentdir)
 from reader.csvReader import readVaccinations, readTests, readCovidGrow
 from visualization.CovidVisualisation import CovidVisualisation
 
+
+
+
+def autocorrelation_shift_day(MIN_AUTOCORRELATION_FACTOR: float, covid_type, autocorrelation ):
+    result_day_numbers = 0
+    for day_number, autocorr in autocorrelation["autoCorr"][str(covid_type)].items():
+        if autocorr < MIN_AUTOCORRELATION_FACTOR:
+            break
+        result_day_numbers = day_number
+    return result_day_numbers
+
 class Correlations:
 
     @staticmethod
@@ -118,10 +129,8 @@ class Correlations:
             data[str(parameter)] = column
         
         return data
-        
-        
 
-
+    
 
 
         

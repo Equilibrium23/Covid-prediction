@@ -11,7 +11,7 @@ from sklearn.preprocessing import StandardScaler
 from datetime import datetime
 from pandas.core.frame import DataFrame
 
-HIGH_CORR = 0.75
+HIGH_CORR = 0.65
 
 def choose_columns(vaccinations, covidDetails, tests, corr_data):
     goal = str(CovidGrow.NEW_DAILY_CASES)
@@ -35,12 +35,12 @@ def choose_columns(vaccinations, covidDetails, tests, corr_data):
     return data
 
 
-def predict(vaccinations, covidDetails, tests, corr_data, start_date, days_to_predict):
+def predict(vaccinations, covidDetails, tests, corr_data, train_start_day ,prediction_start_date, days_to_predict):
     #data
     inputs = choose_columns(vaccinations, covidDetails, tests, corr_data)
     outputs = [ info[CovidGrow.NEW_DAILY_CASES] for info in covidDetails.values() ]
 
-    start = -abs((datetime.strptime("2021-05-17", '%Y-%m-%d').date() - start_date).days)
+    start = -abs((prediction_start_date - train_start_day).days)
     stop = -days_to_predict
     delta = days_to_predict
     

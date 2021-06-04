@@ -1,49 +1,11 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from reader.csvReader import readVaccinations, readTests, readCovidGrow, Vaccination, CovidTest, CovidGrow
-from autocorrelation.Correlations import Correlations
+from autocorrelation.Correlations import Correlations, autocorrelation_shift_day
 from prediction.prediction import predict
 
-if __name__ == "__main__":
-    START_DATE = "2021-04-26"
-    DAYS_TO_PREDICT = 7
-
-    # vaccinations = readVaccinations()
-    # for date, vaccinationsData in vaccinations.items():
-    #     print(date)
-    #     print(vaccinationsData[Vaccination.ALL])
-    #     print(vaccinationsData[Vaccination.DAILY])
-    #     print(vaccinationsData[Vaccination.COMPLETED])
-    #     print(vaccinationsData[Vaccination.COMPLETED_PERCENT])
-    #     print() 
-    # # example print to show you how output looks like
-    
-    # tests = readTests()
-    # for date, vaccinationsData in tests.items():
-    #     print(date)
-    #     print(vaccinationsData[CovidTest.DAILY_NUMBER_OF_TESTS])
-    #     print(vaccinationsData[CovidTest.DAILY_POSITIVE_TESTS])
-    #     print(vaccinationsData[CovidTest.DAILY_AVERAGE_NUMBER_OF_TESTS])
-    #     print(vaccinationsData[CovidTest.DAILY_AVERAGE_PERCENT_OF_POSITIVE_TESTS])
-    #     print() 
-    # # example print to show you how output looks like
-
-    # covidDetails = readCovidGrow()
-    # for date, covidData in covidDetails.items():
-    #     print(date)
-    #     print(covidData[CovidGrow.NEW_DAILY_CASES])
-    #     print(covidData[CovidGrow.NEW_DAILY_DEATHS])
-    #     print(covidData[CovidGrow.NEW_DAILY_RECOVERIES])
-    #     print(covidData[CovidGrow.INACTIVE_CASES_SHIFT])
-    #     print(covidData[CovidGrow.ACTIVE_CASES_SHIFT])
-    #     print(covidData[CovidGrow.SUMMED_CASES])
-    #     print(covidData[CovidGrow.SUMMED_DEATHS])
-    #     print(covidData[CovidGrow.SUMMED_RECOVERIES])
-    #     print(covidData[CovidGrow.TEMPORARY_INACTIVE_CASES_NUMBER])
-    #     print(covidData[CovidGrow.TEMPORARY_ACTIVE_CASES_NUMBER])
-    #     print() 
-    # # example print to show you how output looks like
-
-    corr_data = Correlations.correlate([
+def correlation_data( START_DATE, END_DATE ):
+    return Correlations.correlate(
+    [
         #Chosen Vaccinations data columns
         Vaccination.ALL, 
         Vaccination.DAILY,
@@ -70,13 +32,22 @@ if __name__ == "__main__":
         CovidGrow.TEMPORARY_INACTIVE_CASES_NUMBER,
         CovidGrow.TEMPORARY_ACTIVE_CASES_NUMBER,
         CovidGrow.SUMMED_RECOVERIES
-    ], start_date = START_DATE, end_date = "2021-05-17", plot=False)
-    # example of function invocation
+    ], 
+    start_date = START_DATE, end_date = END_DATE, plot=False)
+
+if __name__ == "__main__":
+    START_DATE = "2021-04-1"
+    MIN_AUTOCORRELATION_FACTOR = 0.4
+    DAYS_TO_PREDICT = 7
+
+    corr_data = correlation_data("2021-1-1", START_DATE)
+    TRAIN_SHIFT_DAY = autocorrelation_shift_day(MIN_AUTOCORRELATION_FACTOR, CovidGrow.NEW_DAILY_CASES, corr_data )
 
     vaccinations = readVaccinations()
     covidDetails = readCovidGrow()
     tests = readTests()
 
     start_date = datetime.strptime(START_DATE, '%Y-%m-%d').date()
-    predict(vaccinations, covidDetails, tests, corr_data, start_date, DAYS_TO_PREDICT)
+    train_start_day = start_date - timedelta(days = TRAIN_SHIFT_DAY)
+    predict(vaccinations, covidDetails, tests, corr_data, train_start_day ,start_date, DAYS_TO_PREDICT)
     
