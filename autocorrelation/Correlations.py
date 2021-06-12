@@ -2,7 +2,6 @@ import os
 import sys
 import pandas as pd
 import numpy as np
-from pandas.core.frame import DataFrame
 from datetime import datetime
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
@@ -12,10 +11,21 @@ sys.path.append(parentdir)
 from reader.csvReader import readVaccinations, readTests, readCovidGrow
 from visualization.CovidVisualisation import CovidVisualisation
 
+
+
+
+def autocorrelation_shift_day(MIN_AUTOCORRELATION_FACTOR: float, covid_type, autocorrelation ):
+    result_day_numbers = 0
+    for day_number, autocorr in autocorrelation["autoCorr"][str(covid_type)].items():
+        if autocorr < MIN_AUTOCORRELATION_FACTOR:
+            break
+        result_day_numbers = day_number
+    return result_day_numbers
+
 class Correlations:
 
     @staticmethod
-    def correlate(paramsVaccinations: list, paramsTests: list, paramsCovidGrow: list, start_date: str, end_date: str) -> dict:
+    def correlate(paramsVaccinations: list, paramsTests: list, paramsCovidGrow: list, start_date: str, end_date: str, plot: bool) -> dict:
         """
         Parameters:
             paramsVaccinations: list of columns' names (see: Vaccination enum class) 
@@ -23,6 +33,7 @@ class Correlations:
             paramsCovidGrow: list of columns' names (see: CovidGrow enum class)
             start_date: data starting from this date is take into account
             end_date: data to this date is take into account
+            plot: bool indicationg if data should be plotted
 
         Output:
             Dictionary containing correlation matrix and autocorrelation data of given parameters
@@ -49,16 +60,17 @@ class Correlations:
                 print('\n---AUTOCORRELATION DATA---\n', file=f)
                 print(autoCorr, file=f)
             
-            covid_charts = CovidVisualisation()
-            start = start_date.split('-')
-            end = end_date.split('-')
+            if plot:
+                covid_charts = CovidVisualisation()
+                start = start_date.split('-')
+                end = end_date.split('-')
 
-            covid_charts.linear_covid_data_plots([*paramsVaccinations, *paramsTests, *paramsCovidGrow], 
-                                      datetime(int(start[0]), int(start[1]), int(start[2])), 
-                                      datetime(int(end[0]), int(end[1]), int(end[2])))
-            
-            covid_charts.linear_autocorrelation_plots(autoCorr.to_dict())
-            covid_charts.correlation_matrix_plot(corrMatrix)
+                covid_charts.linear_covid_data_plots([*paramsVaccinations, *paramsTests, *paramsCovidGrow], 
+                                        datetime(int(start[0]), int(start[1]), int(start[2])), 
+                                        datetime(int(end[0]), int(end[1]), int(end[2])))
+                
+                covid_charts.linear_autocorrelation_plots(autoCorr.to_dict())
+                covid_charts.correlation_matrix_plot(corrMatrix)
 
             return {'autoCorr': autoCorr.to_dict(), 'corrMatrix': corrMatrix.to_dict()}
 
@@ -117,10 +129,8 @@ class Correlations:
             data[str(parameter)] = column
         
         return data
-        
-        
 
-
+    
 
 
         
