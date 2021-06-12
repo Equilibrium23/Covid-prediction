@@ -10,7 +10,7 @@ class CovidClf:
                                     solver='lbfgs',
                                     activation='relu',
                                     alpha=1e-3,
-                                    hidden_layer_sizes=(100,100,100),
+                                    hidden_layer_sizes=(10, 10, 10),
                                     max_iter = 10000,
                                     tol = 1e-8,
                                     n_iter_no_change = 100

@@ -63,7 +63,7 @@ def weekly_average_of_covid_new_cases(covid_data):
     return result
 
 
-HIGH_CORR = 0.5
+HIGH_CORR = 0.75
 
 def choose_columns(vaccinations, covidDetails, tests, corr_data):
     goal = str(CovidGrow.NEW_DAILY_CASES)
@@ -77,7 +77,7 @@ def choose_columns(vaccinations, covidDetails, tests, corr_data):
     data[CovidTest] = []
 
     for key in Vaccination:
-        if corr[str(key)] > HIGH_CORR or corr[str(key)] < HIGH_CORR:
+        if corr[str(key)] > HIGH_CORR or corr[str(key)] < -HIGH_CORR:
             data[Vaccination].append(key)
 
     for key in CovidGrow:
@@ -98,7 +98,7 @@ def prepare_learning_and_testing_data():
     covidDetails = readCovidGrow()
     tests = readTests()
 
-    TRAIN_START_DAY = "2020-09-07"
+    TRAIN_START_DAY = "2020-12-28"
     TRAIN_END_DAY = "2021-04-19"
     TRAIN_NUMBER_OF_WEEKS = 1
     corr_data = correlation_data( TRAIN_START_DAY, TRAIN_END_DAY )
