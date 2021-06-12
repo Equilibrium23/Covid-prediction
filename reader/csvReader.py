@@ -1,8 +1,8 @@
+import re
 import csv
-from datetime import datetime
 import unicodedata
 from enum import Enum
-import re
+from datetime import datetime
 
 class Vaccination(Enum):
     ALL = 0 # Summed Vaccinations From the Beginning

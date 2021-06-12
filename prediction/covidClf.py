@@ -1,6 +1,5 @@
 from joblib import dump, load
 from sklearn.neural_network import MLPClassifier
-from pandas.core.frame import DataFrame
 from sklearn.preprocessing import StandardScaler
 
 
@@ -32,5 +31,4 @@ class CovidClf:
         sc3 = StandardScaler()
         x = sc3.fit_transform(x)
         self.predicition = self.clf.predict(x)
-        print(self.predicition)
-    
+        return self.predicition
