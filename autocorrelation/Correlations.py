@@ -1,17 +1,16 @@
 import os
 import sys
-import pandas as pd
-import numpy as np
-from datetime import datetime
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 
+import numpy as np
+import pandas as pd
+from datetime import datetime
+
 from reader.csvReader import readVaccinations, readTests, readCovidGrow
 from visualization.CovidVisualisation import CovidVisualisation
-
-
 
 
 def autocorrelation_shift_day(MIN_AUTOCORRELATION_FACTOR: float, covid_type, autocorrelation ):
@@ -65,11 +64,11 @@ class Correlations:
                 start = start_date.split('-')
                 end = end_date.split('-')
 
-                covid_charts.linear_covid_data_plots([*paramsVaccinations, *paramsTests, *paramsCovidGrow], 
-                                        datetime(int(start[0]), int(start[1]), int(start[2])), 
-                                        datetime(int(end[0]), int(end[1]), int(end[2])))
+                # covid_charts.linear_covid_data_plots([*paramsVaccinations, *paramsTests, *paramsCovidGrow], 
+                #                         datetime(int(start[0]), int(start[1]), int(start[2])), 
+                #                         datetime(int(end[0]), int(end[1]), int(end[2])))
                 
-                covid_charts.linear_autocorrelation_plots(autoCorr.to_dict())
+                covid_charts.bar_autocorrelation_plots(autoCorr.to_dict())
                 covid_charts.correlation_matrix_plot(corrMatrix)
 
             return {'autoCorr': autoCorr.to_dict(), 'corrMatrix': corrMatrix.to_dict()}

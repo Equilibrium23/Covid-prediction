@@ -4,11 +4,11 @@ currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 
-from datetime import datetime, timedelta 
 from statistics import mean
-from reader.csvReader import readVaccinations, readTests, readCovidGrow, Vaccination, CovidTest, CovidGrow
+from datetime import datetime, timedelta 
+
 from autocorrelation.Correlations import Correlations
-import numpy as np
+from reader.csvReader import readVaccinations, readTests, readCovidGrow, Vaccination, CovidTest, CovidGrow
 
 def correlation_data( START_DATE, END_DATE ):
     return Correlations.correlate(
@@ -65,7 +65,7 @@ def weekly_average_of_covid_new_cases(covid_data):
 
 HIGH_CORR = 0.75
 
-def choose_columns(vaccinations, covidDetails, tests, corr_data):
+def choose_columns(corr_data):
     goal = str(CovidGrow.NEW_DAILY_CASES)
     corr_type = 'corrMatrix'
 
@@ -103,10 +103,9 @@ def prepare_learning_and_testing_data():
     TRAIN_NUMBER_OF_WEEKS = 1
     corr_data = correlation_data( TRAIN_START_DAY, TRAIN_END_DAY )
 
-    chosen_columns = choose_columns(vaccinations, covidDetails, tests, corr_data)
+    chosen_columns = choose_columns(corr_data)
 
     output = weekly_average_of_covid_new_cases(covidDetails)
-    print(chosen_columns)
 
     ##### train
     temp_train_date = datetime.strptime(TRAIN_START_DAY, '%Y-%m-%d').date()
@@ -165,17 +164,11 @@ def prepare_learning_and_testing_data():
     temp_test_date = datetime.strptime(TRAIN_END_DAY, '%Y-%m-%d').date()
     temp_test_date += timedelta(days = 7 * TRAIN_NUMBER_OF_WEEKS)
     test_output = []
-    for date, average_new_covid_cases in output.items():
+    for date, _ in output.items():
         
         if date == temp_test_date:
             test_output.append(output[date])
             if temp_test_date + timedelta(days = 7 * ( TRAIN_NUMBER_OF_WEEKS )) <= test_end_date:
                 temp_test_date += timedelta(days = 7 * TRAIN_NUMBER_OF_WEEKS)
-
-
-    print(len(train_input))
-    print(len(train_output))
-    print(len(test_input))
-    print(len(test_output))
 
     return (train_input, train_output, test_input, test_output)

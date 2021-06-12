@@ -6,10 +6,12 @@ parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 
 import pandas as pd
-import plotly.graph_objects as go
-import plotly.express as px
-from plotly.subplots import make_subplots
 from datetime import datetime
+
+import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
 from reader.csvReader import readVaccinations, readTests, readCovidGrow, Vaccination, CovidTest, CovidGrow
 
 class CovidVisualisation:
@@ -57,14 +59,14 @@ class CovidVisualisation:
         fig.update_layout(height=len(data_types)*400, width=1300, title_text="Covid Data Subplots", showlegend=False)
         fig.show()
     
-    def linear_autocorrelation_plots(self, data: dict):
+    def bar_autocorrelation_plots(self, data: dict):
         fig = make_subplots(
             rows=len(data.keys()), cols=1,
             subplot_titles=(tuple([str(x) + ' AUTOCORRELATION' for x in data.keys()]))
             )
         
         for index, key in enumerate(data.keys()):
-            fig.append_trace(go.Scatter
+            fig.append_trace(go.Bar
                 (
                     x=list(data[key].keys()),
                     y=list(data[key].values()),
@@ -98,3 +100,95 @@ class CovidVisualisation:
                 )
             )
             fig.show()
+
+    def week_avg_prediction(self, prediction_data, real_data):
+        print("\n" + "Actual Data: " + str(real_data))
+        print("Prediction: " + str(prediction_data) + "\n")
+
+        covid_data = dict()
+        covid_data["x"] = list(range(1, len(real_data) + 1))
+        covid_data["y"] = real_data;
+
+        fig = px.bar()
+
+        fig.update_layout(
+            height=600,
+            width=1000, title_text="Weekly average daily cases prediction",
+            xaxis_title="Weeks",
+            yaxis_title = "Average Daily Cases",
+            barmode='group',
+            font=dict(
+                size=14,
+            )
+        )
+
+        fig.append_trace(go.Bar
+                    (
+                        x=covid_data["x"],
+                        y=prediction_data,
+                        name='Prediction'
+                    ), row=1, col=1)
+
+        fig.append_trace(go.Bar
+                    (
+                        x=covid_data["x"],
+                        y=covid_data["y"],
+                        name='Real data',
+                    ), row=1, col=1)
+
+        fig.update_traces(marker_coloraxis=None)
+        fig.show()
+
+    def plot_prediction(self, prediction, test_out, train_out):
+        fig = make_subplots(rows = 2, cols = 1)
+
+        fig.update_layout(
+            height=600,
+            width=1300, title_text="Daily cases prediction",
+            xaxis_title="Days",
+            yaxis_title = "Daily Cases",
+            font=dict(
+                size=14,
+            )
+        )
+
+        #plot 1
+        fig.append_trace(go.Scatter
+                    (
+                        x=list(range(len(train_out), len(train_out) + len(prediction))),
+                        y= prediction,
+                        name='Prediction'
+                    ), row=1, col=1)
+
+        fig.append_trace(go.Scatter
+                    (
+                        x=list(range(len(train_out), len(train_out) + len(test_out))),
+                        y= test_out,
+                        name='Real Testing Data'
+                    ), row=1, col=1)
+
+        fig.append_trace(go.Scatter
+                    (
+                        x=list(range(1, len(train_out))),
+                        y= train_out,
+                        name='Real Training Data'
+                    ), row=1, col=1)
+
+        #plot 2
+        fig.append_trace(go.Scatter
+                    (
+                        x=list(range(1, len(prediction))),
+                        y= prediction,
+                        name='Prediction'
+                    ), row=2, col=1)
+
+        fig.append_trace(go.Scatter
+                    (
+                        x=list(range(1, len(test_out))),
+                        y= test_out,
+                        name='Real Testing Data'
+                    ), row=2, col=1)
+
+        fig.update_traces(marker_coloraxis=None)
+        fig.show()
+        
