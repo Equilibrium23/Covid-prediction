@@ -1,4 +1,5 @@
 Data,Nowe przypadki,Nowe zgony,Nowe wyzdrowienia,Zmiana liczby nieaktywnych przypadków,Zmiana liczby aktywnych przypadków,Suma potwierdzonych przypadków,Suma zgonów,Suma wyzdrowień,Liczba nieaktywnych przypadków,Liczba aktywnych przypadków
+2020-03-02,+ 0,0,0,0,+ 0,0,0,0,0,0
 2020-03-03,+ 0,0,0,0,+ 0,0,0,0,0,0
 2020-03-04,+ 1,0,0,0,+ 1,1,0,0,0,1
 2020-03-05,+ 0,0,0,0,+ 0,1,0,0,0,1
@@ -440,4 +441,3 @@ Data,Nowe przypadki,Nowe zgony,Nowe wyzdrowienia,Zmiana liczby nieaktywnych przy
 2021-05-15,+ 2896,+ 298,+ 6358,+ 6656,-3 760,2850988,71541,2595635,2667176,183812
 2021-05-16,+ 2167,+ 55,+ 5339,+ 5394,-3 227,2853155,71596,2600974,2672570,180585
 2021-05-17,+ 1109,+ 11,+ 4729,+ 4740,-3 631,2854264,71607,2605703,2677310,176954
-2021-05-18,+ 1734,+ 245,+ 3513,+ 3758,-2 024,2855998,71852,2609216,2681068,174930
