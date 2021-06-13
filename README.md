@@ -182,7 +182,7 @@ By skorzystać ze stworzonego przez nas narzędzia, wystarczy postępować zgodn
 
 1. **Pobierz repozytorium**
 
-Wszystkie pliki źródłowe znajdują się w repozytorium na platformie GitHub - [https://github.com/Equilibrium23/MIO-Project](https://github.com/Equilibrium23/MIO-Project)  
+Wszystkie pliki źródłowe znajdują się w repozytorium na platformie GitHub - [https://github.com/Equilibrium23/MIO-Project](https://github.com/Equilibrium23/Covid-prediction)  
 
 
 2. **Pobierz najnowszą wersję Python’a**
