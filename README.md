@@ -69,7 +69,7 @@ Po wywołaniu metody, lokalnie w przeglądarce zostaje włączony interaktywny w
 
 Po wywołaniu metody, lokalnie w przeglądarce zostaje włączony interaktywny wykres, na którym możemy zobaczyć dane przekazane do metod.
 
-Przykłady działania wizualizacji przedstawione zostaną przy użyciu danych z dni **od 20 kwietnia 2021 roku **do **17 maja 2021 roku.**
+Przykłady działania wizualizacji przedstawione zostaną przy użyciu danych z dni **od 20 kwietnia 2021 roku** do **17 maja 2021 roku.**
 
 Przedstawiają one odpowiednio:
 *   Ilość dziennych przypadków zakażeń (w postaci liniowej i słupkowej),
