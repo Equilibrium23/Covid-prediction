@@ -37,7 +37,7 @@ Do wytworzenia predykcji korzystamy z danych przygotowanych przez Pana **Michał
 
 Dane dla większej przejrzystości zostały podzielone na trzy główne pliki - **wzrost, testy i szczepienia.** Dla wygody, korzystaliśmy z pobranych arkuszy, dlatego w projekcie zawarte są dane w zakresie od **2 marca 2020**, do **17 maja 2021**.
 
-<img src="https://github.com/Equilibrium23/Covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/input_data.png" height="400px" width="660px">
+<img src="https://github.com/Equilibrium23/covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/input_data.png" height="400px" width="660px">
 
 Rys. 1 - Plik **Google Spreadsheets** stworzony przez Michała Rogalskiego,  zawierający wszystkie dostępne dane na temat przebiegu COVID-19 w Polsce
 
@@ -47,7 +47,7 @@ Dane z plików CSV wymagają parsowania - w folderze **reader** znajduje się pl
 
 W pliku utworzone zostały **trzy klasy** - po jednej na rodzaj (**CovidGrow, CovidTest i Vaccination**)  -  w których dostępne są metody czytające dane z plików CSV. Metody te przetwarzają dane na słowniki, które poszczególnym datom przypisują wszystkie dane dotyczące specyficznego rodzaju. Przykładowo wyciągając ostatni element z obiektu klasy CovidGrow, otrzymujemy: 
 
-<img src="https://github.com/Equilibrium23/Covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/parsed_data.png" height="400px" width="600px">
+<img src="https://github.com/Equilibrium23/covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/parsed_data.png" height="400px" width="600px">
 
 Rys. 2 - Graficzne przedstawienie **formatu danych** stosowanych w projekcie
 
@@ -76,25 +76,25 @@ Przedstawiają one odpowiednio:
 *   Ilość dziennych dawek szczepionek (w postaci liniowej i słupkowej)
 
 
-<img src="https://github.com/Equilibrium23/Covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/daily_cases_bar_plot.png" height="350px" width="600px">
+<img src="https://github.com/Equilibrium23/covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/daily_cases_bar_plot.png" height="350px" width="600px">
 
 Rys. 3 - Wykres **słupkowy** przedstawiający ilość przypadków **(20.04 - 17.05.2021)**
 
-<img src="https://github.com/Equilibrium23/Covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/daily_cases_linear_plot.png" height="350px" width="600px">
+<img src="https://github.com/Equilibrium23/covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/daily_cases_linear_plot.png" height="350px" width="600px">
 
 Rys. 4 - Wykres **liniowy** przedstawiający ilość przypadków **(20.04 - 17.05.2021)**
 
-<img src="https://github.com/Equilibrium23/Covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/daily_vaccination_bar_plot.png" height="350px" width="600px">
+<img src="https://github.com/Equilibrium23/covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/daily_vaccination_bar_plot.png" height="350px" width="600px">
 
 Rys. 5 - Wykres **słupkowy** przedstawiający ilość podanych szczepionek **(20.04 - 17.05.2021)**
 
-<img src="https://github.com/Equilibrium23/Covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/daily_vaccination_linear_plot.png" height="350px" width="600px">
+<img src="https://github.com/Equilibrium23/covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/daily_vaccination_linear_plot.png" height="350px" width="600px">
 
 Rys. 6 - Wykres **liniowy** przedstawiający ilość podanych szczepionek **(20.04 - 17.05.2021)**
 
 Jeden z wykresów predykcji pokazuje również wyniki przedstawione na tle danych treningowych dostarczonych w procesie:
 
-<img src="https://github.com/Equilibrium23/Covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/prediction_scaled_graph.png" height="200px" width="800px">
+<img src="https://github.com/Equilibrium23/covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/prediction_scaled_graph.png" height="200px" width="800px">
 
 Rys. 7 - Wizualizacja predykcji na tle **danych treningowych**
 
@@ -103,27 +103,27 @@ Rys. 7 - Wizualizacja predykcji na tle **danych treningowych**
 
 By wybrać spośród dużej ilości potencjalnych danych te, które mają znaczenie w przypadku próby predykcji przypadków COVID-19, skorzystaliśmy z analizy **korelacji** między zmiennymi oraz analizy **autokorelacji**. Korelację między zmiennymi opisaliśmy na macierzy:
 
-<img src="https://github.com/Equilibrium23/Covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/correlation_matrix.png" height="400px" width="650px">
+<img src="https://github.com/Equilibrium23/covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/correlation_matrix.png" height="400px" width="650px">
 
 Rys. 8 - Wizualizacja **macierzy korelacji** potencjalnych wartości wejściowych
 
 **Autokorelacja** (korelacja sygnału z poprzednimi jego stanami), została przedstawiona na osobnym wykresie dla każdej ze zmiennych, na przykład:
 
-<img src="https://github.com/Equilibrium23/Covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/vaccination_daily_autocorrelation.png" height="200px" width="800px">
+<img src="https://github.com/Equilibrium23/covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/vaccination_daily_autocorrelation.png" height="200px" width="800px">
 
 Rys. 9 - Wizualizacja **autokorelacji** dla **dziennej ilości podanych szczepionek** (liniowy)
 
-<img src="https://github.com/Equilibrium23/Covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/new_daily_cases_autocorrelation.png" height="200px" width="800px">
+<img src="https://github.com/Equilibrium23/covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/new_daily_cases_autocorrelation.png" height="200px" width="800px">
 
 Rys. 10 - Wizualizacja **autokorelacji** dla **dziennej ilości przypadków** (liniowy)
 
 Na początku wykresy autokorelacji przedstawione zostały na wykresach **liniowych**, ale zgodnie z zaleceniami zmienione zostały na wykresy **słupkowe**.
 
-<img src="https://github.com/Equilibrium23/Covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/bar_graph_vaccines.png" height="200px" width="800px">
+<img src="https://github.com/Equilibrium23/covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/bar_graph_vaccines.png" height="200px" width="800px">
 
 Rys. 11 - Wizualizacja **autokorelacji** dla **dziennej ilości podanych szczepionek** (słupkowy)
 
-<img src="https://github.com/Equilibrium23/Covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/bar_graph_cases.png" height="200px" width="800px">
+<img src="https://github.com/Equilibrium23/covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/bar_graph_cases.png" height="200px" width="800px">
 
 Rys. 12 - Wizualizacja **autokorelacji** dla **dziennej ilości przypadków** (słupkowy)
 
@@ -157,11 +157,11 @@ Ten rodzaj również pozwala na zmianę parametrów, lecz te zmieniamy w pliku *
 
 ### Predykcja następnego tygodnia
 
-<img src="https://github.com/Equilibrium23/Covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/output_graph_1.png" height="300px" width="650px">
+<img src="https://github.com/Equilibrium23/covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/output_graph_1.png" height="300px" width="650px">
 
-<img src="https://github.com/Equilibrium23/Covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/output_graph_2.png" height="300px" width="650px">
+<img src="https://github.com/Equilibrium23/covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/output_graph_2.png" height="300px" width="650px">
 
-<img src="https://github.com/Equilibrium23/Covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/output_graph_3.png" height="300px" width="650px">
+<img src="https://github.com/Equilibrium23/covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/output_graph_3.png" height="300px" width="650px">
 
 
 
@@ -170,7 +170,7 @@ Rys. 13 - Przykładowe wyniki **predykcji dziennej ilości zachorowań** następ
 
 ### Predykcja średniej ilości dziennych zakażeń następnych tygodni
 
-<img src="https://github.com/Equilibrium23/Covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/weeks_output_graph_1.png" height="450px" width="650px">
+<img src="https://github.com/Equilibrium23/covid-prediction/blob/docs/documentation-and-pictures/docs/Pictures/weeks_output_graph_1.png" height="450px" width="650px">
 
 Rys. 14 - Przykładowy wynik **predykcji tygodniowej średniej ilości dziennych zachorowań** trzech kolejnych tygodni
 
@@ -182,7 +182,7 @@ By skorzystać ze stworzonego przez nas narzędzia, wystarczy postępować zgodn
 
 1. **Pobierz repozytorium**
 
-Wszystkie pliki źródłowe znajdują się w repozytorium na platformie GitHub - [https://github.com/Equilibrium23/Covid-prediction](https://github.com/Equilibrium23/Covid-prediction)  
+Wszystkie pliki źródłowe znajdują się w repozytorium na platformie GitHub - [https://github.com/Equilibrium23/covid-prediction](https://github.com/Equilibrium23/covid-prediction)  
 
 
 2. **Pobierz najnowszą wersję Python’a**
