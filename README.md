@@ -151,7 +151,7 @@ Ta predykcja bazując na wybranej przez nas ilości danych i wybranych przez sel
 
 **2. Przewidywanie tygodniowo średnich ilości dziennych przypadków zarażeń dla 3 kolejnych tygodni**
 
-Ten rodzaj również pozwala na zmianę parametrów, lecz te zmieniamy w pliku **prepareData.py**.** **Ta predykcja bazując na tygodniowych średnich z przeszłości pozwala nam ustalić średnie dla trzech kolejnych tygodni.
+Ten rodzaj również pozwala na zmianę parametrów, lecz te zmieniamy w pliku **prepareData.py**. Ta predykcja bazując na tygodniowych średnich z przeszłości pozwala nam ustalić średnie dla trzech kolejnych tygodni.
 
 ## 9. Przykładowe wyniki predykcji
 
