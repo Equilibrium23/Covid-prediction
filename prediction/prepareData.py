@@ -98,6 +98,7 @@ def prepare_learning_and_testing_data():
     covidDetails = readCovidGrow()
     tests = readTests()
 
+    ##### both dates have to be MONDAYS!
     TRAIN_START_DAY = "2020-12-28"
     TRAIN_END_DAY = "2021-04-19"
     TRAIN_NUMBER_OF_WEEKS = 1
